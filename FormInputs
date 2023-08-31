@@ -1,0 +1,23 @@
+  const GetFieldDecoratorHelper = useCallback(({ label, fieldName }) => {
+    return (
+      <Form.Item label={label}>
+        {getFieldDecorator(fieldName, {
+          rules: [
+            {
+              required: true,
+              message: "field is mandatory",
+            },
+          ],
+        })(
+          <Input
+            onBlur={(e) => {
+              const value = e.target.value;
+              // Trigger validation on blur
+              props.form.validateFields([fieldName], { force: true });
+            }}
+            placeholder={`Enter ${label}`}
+          />
+        )}
+      </Form.Item>
+    );
+  }, []);
